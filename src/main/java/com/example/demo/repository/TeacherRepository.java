@@ -1,13 +1,13 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.Professor;
+import com.example.demo.entity.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface ProfessorRepository extends JpaRepository<Professor, Long> {
-    Optional<Professor> findByEmail(String email);
+public interface TeacherRepository extends JpaRepository<Teacher, Long> {
+    Optional<Teacher> findByEmail(String email);
     boolean existsByEmail(String email);
 }

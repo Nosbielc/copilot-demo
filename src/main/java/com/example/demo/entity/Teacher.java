@@ -5,8 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "professores")
-public class Professor {
+@Table(name = "teachers")
+public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class Professor {
 
     @NotBlank
     @Column(nullable = false)
-    private String nome;
+    private String name;
 
     @Email
     @NotBlank
@@ -23,15 +23,15 @@ public class Professor {
 
     @NotBlank
     @Column(nullable = false)
-    private String disciplina;
+    private String subject;
 
-    public Professor() {
+    public Teacher() {
     }
 
-    public Professor(String nome, String email, String disciplina) {
-        this.nome = nome;
+    public Teacher(String name, String email, String subject) {
+        this.name = name;
         this.email = email;
-        this.disciplina = disciplina;
+        this.subject = subject;
     }
 
     public Long getId() {
@@ -42,12 +42,12 @@ public class Professor {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -58,11 +58,11 @@ public class Professor {
         this.email = email;
     }
 
-    public String getDisciplina() {
-        return disciplina;
+    public String getSubject() {
+        return subject;
     }
 
-    public void setDisciplina(String disciplina) {
-        this.disciplina = disciplina;
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 }
