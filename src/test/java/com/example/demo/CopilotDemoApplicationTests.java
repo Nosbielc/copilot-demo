@@ -1,11 +1,11 @@
 package com.example.demo;
 
-import com.example.demo.entity.Aluno;
-import com.example.demo.entity.Professor;
-import com.example.demo.entity.Sala;
-import com.example.demo.repository.AlunoRepository;
-import com.example.demo.repository.ProfessorRepository;
-import com.example.demo.repository.SalaRepository;
+import com.example.demo.entity.Room;
+import com.example.demo.entity.Student;
+import com.example.demo.entity.Teacher;
+import com.example.demo.repository.RoomRepository;
+import com.example.demo.repository.StudentRepository;
+import com.example.demo.repository.TeacherRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,130 +24,130 @@ class CopilotDemoApplicationTests {
     private WebTestClient webTestClient;
 
     @Autowired
-    private AlunoRepository alunoRepository;
+    private StudentRepository studentRepository;
 
     @Autowired
-    private SalaRepository salaRepository;
+    private RoomRepository roomRepository;
 
     @Autowired
-    private ProfessorRepository professorRepository;
+    private TeacherRepository teacherRepository;
 
     @BeforeEach
     void setUp() {
-        alunoRepository.deleteAll();
-        salaRepository.deleteAll();
-        professorRepository.deleteAll();
+        studentRepository.deleteAll();
+        roomRepository.deleteAll();
+        teacherRepository.deleteAll();
     }
 
     @Test
     void contextLoads() {
     }
 
-    // --- Aluno CRUD Tests ---
+    // --- Student CRUD Tests ---
 
     @Test
-    void deveCriarAluno() {
-        Aluno aluno = new Aluno("João Silva", "joao@escola.com", "MAT001");
+    void shouldCreateStudent() {
+        Student student = new Student("John Smith", "john@school.com", "MAT001");
 
-        webTestClient.post().uri("/api/alunos")
+        webTestClient.post().uri("/api/students")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(aluno)
+                .bodyValue(student)
                 .exchange()
                 .expectStatus().isCreated()
-                .expectBody(Aluno.class)
+                .expectBody(Student.class)
                 .value(a -> {
                     assertThat(a.getId()).isNotNull();
-                    assertThat(a.getNome()).isEqualTo("João Silva");
-                    assertThat(a.getEmail()).isEqualTo("joao@escola.com");
-                    assertThat(a.getMatricula()).isEqualTo("MAT001");
+                    assertThat(a.getName()).isEqualTo("John Smith");
+                    assertThat(a.getEmail()).isEqualTo("john@school.com");
+                    assertThat(a.getEnrollmentNumber()).isEqualTo("MAT001");
                 });
     }
 
     @Test
-    void deveListarAlunos() {
-        alunoRepository.save(new Aluno("Maria Santos", "maria@escola.com", "MAT002"));
+    void shouldListStudents() {
+        studentRepository.save(new Student("Mary Johnson", "mary@school.com", "MAT002"));
 
-        webTestClient.get().uri("/api/alunos")
+        webTestClient.get().uri("/api/students")
                 .exchange()
                 .expectStatus().isOk()
-                .expectBodyList(Aluno.class)
+                .expectBodyList(Student.class)
                 .hasSize(1);
     }
 
     @Test
-    void deveRetornar404ParaAlunoInexistente() {
-        webTestClient.get().uri("/api/alunos/999")
+    void shouldReturn404ForNonExistentStudent() {
+        webTestClient.get().uri("/api/students/999")
                 .exchange()
                 .expectStatus().isNotFound();
     }
 
     @Test
-    void deveDeletarAluno() {
-        Aluno saved = alunoRepository.save(new Aluno("Carlos Lima", "carlos@escola.com", "MAT003"));
+    void shouldDeleteStudent() {
+        Student saved = studentRepository.save(new Student("Charles Lima", "charles@school.com", "MAT003"));
 
-        webTestClient.delete().uri("/api/alunos/" + saved.getId())
+        webTestClient.delete().uri("/api/students/" + saved.getId())
                 .exchange()
                 .expectStatus().isNoContent();
     }
 
-    // --- Sala CRUD Tests ---
+    // --- Room CRUD Tests ---
 
     @Test
-    void deveCriarSala() {
-        Sala sala = new Sala("Sala de Informática", "101", 30);
+    void shouldCreateRoom() {
+        Room room = new Room("Computer Lab", "101", 30);
 
-        webTestClient.post().uri("/api/salas")
+        webTestClient.post().uri("/api/rooms")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(sala)
+                .bodyValue(room)
                 .exchange()
                 .expectStatus().isCreated()
-                .expectBody(Sala.class)
+                .expectBody(Room.class)
                 .value(s -> {
                     assertThat(s.getId()).isNotNull();
-                    assertThat(s.getNome()).isEqualTo("Sala de Informática");
-                    assertThat(s.getNumero()).isEqualTo("101");
-                    assertThat(s.getCapacidade()).isEqualTo(30);
+                    assertThat(s.getName()).isEqualTo("Computer Lab");
+                    assertThat(s.getNumber()).isEqualTo("101");
+                    assertThat(s.getCapacity()).isEqualTo(30);
                 });
     }
 
     @Test
-    void deveListarSalas() {
-        salaRepository.save(new Sala("Sala A", "201", 25));
+    void shouldListRooms() {
+        roomRepository.save(new Room("Room A", "201", 25));
 
-        webTestClient.get().uri("/api/salas")
+        webTestClient.get().uri("/api/rooms")
                 .exchange()
                 .expectStatus().isOk()
-                .expectBodyList(Sala.class)
+                .expectBodyList(Room.class)
                 .hasSize(1);
     }
 
-    // --- Professor CRUD Tests ---
+    // --- Teacher CRUD Tests ---
 
     @Test
-    void deveCriarProfessor() {
-        Professor professor = new Professor("Ana Costa", "ana@escola.com", "Matemática");
+    void shouldCreateTeacher() {
+        Teacher teacher = new Teacher("Anne Costa", "anne@school.com", "Mathematics");
 
-        webTestClient.post().uri("/api/professores")
+        webTestClient.post().uri("/api/teachers")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(professor)
+                .bodyValue(teacher)
                 .exchange()
                 .expectStatus().isCreated()
-                .expectBody(Professor.class)
+                .expectBody(Teacher.class)
                 .value(p -> {
                     assertThat(p.getId()).isNotNull();
-                    assertThat(p.getNome()).isEqualTo("Ana Costa");
-                    assertThat(p.getDisciplina()).isEqualTo("Matemática");
+                    assertThat(p.getName()).isEqualTo("Anne Costa");
+                    assertThat(p.getSubject()).isEqualTo("Mathematics");
                 });
     }
 
     @Test
-    void deveListarProfessores() {
-        professorRepository.save(new Professor("Pedro Oliveira", "pedro@escola.com", "Física"));
+    void shouldListTeachers() {
+        teacherRepository.save(new Teacher("Peter Oliveira", "peter@school.com", "Physics"));
 
-        webTestClient.get().uri("/api/professores")
+        webTestClient.get().uri("/api/teachers")
                 .exchange()
                 .expectStatus().isOk()
-                .expectBodyList(Professor.class)
+                .expectBodyList(Teacher.class)
                 .hasSize(1);
     }
 }

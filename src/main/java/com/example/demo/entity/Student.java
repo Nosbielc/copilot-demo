@@ -5,8 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "alunos")
-public class Aluno {
+@Table(name = "students")
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +14,7 @@ public class Aluno {
 
     @NotBlank
     @Column(nullable = false)
-    private String nome;
+    private String name;
 
     @Email
     @NotBlank
@@ -23,15 +23,15 @@ public class Aluno {
 
     @NotBlank
     @Column(nullable = false, unique = true)
-    private String matricula;
+    private String enrollmentNumber;
 
-    public Aluno() {
+    public Student() {
     }
 
-    public Aluno(String nome, String email, String matricula) {
-        this.nome = nome;
+    public Student(String name, String email, String enrollmentNumber) {
+        this.name = name;
         this.email = email;
-        this.matricula = matricula;
+        this.enrollmentNumber = enrollmentNumber;
     }
 
     public Long getId() {
@@ -42,12 +42,12 @@ public class Aluno {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -58,11 +58,11 @@ public class Aluno {
         this.email = email;
     }
 
-    public String getMatricula() {
-        return matricula;
+    public String getEnrollmentNumber() {
+        return enrollmentNumber;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public void setEnrollmentNumber(String enrollmentNumber) {
+        this.enrollmentNumber = enrollmentNumber;
     }
 }

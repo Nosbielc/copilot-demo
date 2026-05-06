@@ -1,122 +1,123 @@
 # copilot-demo
 
-Spring Boot REST API com endpoints reativos, JPA, HikariCP e banco H2 em memória.
+Spring Boot REST API with reactive endpoints, JPA, HikariCP, and an in-memory H2 database.
 
-## Funcionalidades
+## Features
 
-- **CRUD de Alunos** — `GET/POST/PUT/DELETE /api/alunos`
-- **CRUD de Salas** — `GET/POST/PUT/DELETE /api/salas`
-- **CRUD de Professores** — `GET/POST/PUT/DELETE /api/professores`
-- **CRUD de Agenda Escolar** — `GET/POST/PUT/DELETE /api/agenda`
+- **Student CRUD** — `GET/POST/PUT/DELETE /api/students`
+- **Room CRUD** — `GET/POST/PUT/DELETE /api/rooms`
+- **Teacher CRUD** — `GET/POST/PUT/DELETE /api/teachers`
+- **School Schedule CRUD** — `GET/POST/PUT/DELETE /api/schedule`
 
-## Tecnologias
+## Technologies
 
-| Tecnologia | Descrição |
+| Technology | Description |
 |---|---|
-| Spring Boot 3.2 | Framework principal |
-| Spring WebFlux | Endpoints reativos (Mono/Flux) |
-| Spring Data JPA | Acesso a dados com Hibernate |
-| HikariCP | Pool de conexões |
-| H2 Database | Banco de dados em memória |
-| Jakarta Validation | Validação de entrada |
+| Spring Boot 3.2 | Main framework |
+| Spring WebFlux | Reactive endpoints (Mono/Flux) |
+| Spring Data JPA | Data access with Hibernate |
+| HikariCP | Connection pool |
+| H2 Database | In-memory database |
+| Jakarta Validation | Input validation |
 
-## Como Executar
+## How to Run
 
 ```bash
 mvn spring-boot:run
 ```
 
-A API estará disponível em `http://localhost:8080`.  
-O console H2 estará disponível em `http://localhost:8080/h2-console`
-(JDBC URL: `jdbc:h2:mem:escola`, usuário: `sa`, senha em branco).
+The API will be available at `http://localhost:8080`.  
+The H2 console will be available at `http://localhost:8080/h2-console`
+(JDBC URL: `jdbc:h2:mem:escola`, user: `sa`, password: blank).
 
 ## Endpoints
 
-### Alunos
+### Students
 
-| Método | URL | Descrição |
+| Method | URL | Description |
 |---|---|---|
-| GET | `/api/alunos` | Listar todos os alunos |
-| GET | `/api/alunos/{id}` | Buscar aluno por ID |
-| POST | `/api/alunos` | Criar novo aluno |
-| PUT | `/api/alunos/{id}` | Atualizar aluno |
-| DELETE | `/api/alunos/{id}` | Deletar aluno |
+| GET | `/api/students` | List all students |
+| GET | `/api/students/{id}` | Get student by ID |
+| POST | `/api/students` | Create new student |
+| PUT | `/api/students/{id}` | Update student |
+| DELETE | `/api/students/{id}` | Delete student |
 
-**Exemplo de payload:**
+**Example payload:**
 ```json
 {
-  "nome": "João Silva",
-  "email": "joao@escola.com",
-  "matricula": "MAT001"
+  "name": "John Smith",
+  "email": "john@school.com",
+  "enrollmentNumber": "MAT001"
 }
 ```
 
-### Salas
+### Rooms
 
-| Método | URL | Descrição |
+| Method | URL | Description |
 |---|---|---|
-| GET | `/api/salas` | Listar todas as salas |
-| GET | `/api/salas/{id}` | Buscar sala por ID |
-| POST | `/api/salas` | Criar nova sala |
-| PUT | `/api/salas/{id}` | Atualizar sala |
-| DELETE | `/api/salas/{id}` | Deletar sala |
+| GET | `/api/rooms` | List all rooms |
+| GET | `/api/rooms/{id}` | Get room by ID |
+| POST | `/api/rooms` | Create new room |
+| PUT | `/api/rooms/{id}` | Update room |
+| DELETE | `/api/rooms/{id}` | Delete room |
 
-**Exemplo de payload:**
+**Example payload:**
 ```json
 {
-  "nome": "Sala de Informática",
-  "numero": "101",
-  "capacidade": 30
+  "name": "Computer Lab",
+  "number": "101",
+  "capacity": 30
 }
 ```
 
-### Professores
+### Teachers
 
-| Método | URL | Descrição |
+| Method | URL | Description |
 |---|---|---|
-| GET | `/api/professores` | Listar todos os professores |
-| GET | `/api/professores/{id}` | Buscar professor por ID |
-| POST | `/api/professores` | Criar novo professor |
-| PUT | `/api/professores/{id}` | Atualizar professor |
-| DELETE | `/api/professores/{id}` | Deletar professor |
+| GET | `/api/teachers` | List all teachers |
+| GET | `/api/teachers/{id}` | Get teacher by ID |
+| POST | `/api/teachers` | Create new teacher |
+| PUT | `/api/teachers/{id}` | Update teacher |
+| DELETE | `/api/teachers/{id}` | Delete teacher |
 
-**Exemplo de payload:**
+**Example payload:**
 ```json
 {
-  "nome": "Ana Costa",
-  "email": "ana@escola.com",
-  "disciplina": "Matemática"
+  "name": "Anne Costa",
+  "email": "anne@school.com",
+  "subject": "Mathematics"
 }
 ```
 
-### Agenda Escolar
+### School Schedule
 
-| Método | URL | Descrição |
+| Method | URL | Description |
 |---|---|---|
-| GET | `/api/agenda` | Listar todas as agendas |
-| GET | `/api/agenda/{id}` | Buscar agenda por ID |
-| GET | `/api/agenda/data/{data}` | Buscar agendas por data (yyyy-MM-dd) |
-| GET | `/api/agenda/aluno/{alunoId}` | Buscar agendas por aluno |
-| GET | `/api/agenda/professor/{professorId}` | Buscar agendas por professor |
-| GET | `/api/agenda/sala/{salaId}` | Buscar agendas por sala |
-| POST | `/api/agenda` | Criar nova agenda |
-| PUT | `/api/agenda/{id}` | Atualizar agenda |
-| DELETE | `/api/agenda/{id}` | Deletar agenda |
+| GET | `/api/schedule` | List all schedule entries |
+| GET | `/api/schedule/{id}` | Get schedule entry by ID |
+| GET | `/api/schedule/date/{date}` | Get schedule entries by date (yyyy-MM-dd) |
+| GET | `/api/schedule/student/{studentId}` | Get schedule entries by student |
+| GET | `/api/schedule/teacher/{teacherId}` | Get schedule entries by teacher |
+| GET | `/api/schedule/room/{roomId}` | Get schedule entries by room |
+| POST | `/api/schedule` | Create new schedule entry |
+| PUT | `/api/schedule/{id}` | Update schedule entry |
+| DELETE | `/api/schedule/{id}` | Delete schedule entry |
 
-**Exemplo de payload:**
+**Example payload:**
 ```json
 {
-  "data": "2024-06-15",
-  "hora": "08:00:00",
-  "descricao": "Aula de Matemática",
-  "aluno": { "id": 1 },
-  "professor": { "id": 1 },
-  "sala": { "id": 1 }
+  "date": "2024-06-15",
+  "time": "08:00:00",
+  "description": "Mathematics class",
+  "student": { "id": 1 },
+  "teacher": { "id": 1 },
+  "room": { "id": 1 }
 }
 ```
 
-## Executar Testes
+## Running Tests
 
 ```bash
 mvn test
 ```
+
