@@ -121,3 +121,15 @@ The H2 console will be available at `http://localhost:8080/h2-console`
 mvn test
 ```
 
+## Fichiers de contexte Copilot
+
+Ce repository inclut des fichiers Markdown dedies pour ameliorer le contexte de GitHub Copilot:
+
+- `.github/copilot-instructions.md` - guide principal du repository pour Copilot
+- `docs/copilot/architecture.md` - architecture applicative et regles de couches
+- `docs/copilot/domain-model.md` - regles des entites et contraintes metier
+- `docs/copilot/api-contracts.md` - contrats d'endpoints et formats d'erreur
+- `docs/copilot/testing.md` - strategie de test integration + unitaire
+
+Utilisez ces fichiers quand vous demandez a Copilot de generer des endpoints, services, validation ou tests, pour rester aligne avec les patterns actuels du projet.
+
