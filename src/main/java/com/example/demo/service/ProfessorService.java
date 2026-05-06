@@ -39,13 +39,17 @@ public class ProfessorService {
     public Mono<Professor> atualizar(Long id, Professor professorAtualizado) {
         return Mono.fromCallable(() -> professorRepository.findById(id))
                 .subscribeOn(Schedulers.boundedElastic())
-                .flatMap(opt -> opt.map(professor -> {
+                .flatMap(opt -> {
+                    if (opt.isEmpty()) {
+                        return Mono.<Professor>empty();
+                    }
+                    Professor professor = opt.get();
                     professor.setNome(professorAtualizado.getNome());
                     professor.setEmail(professorAtualizado.getEmail());
                     professor.setDisciplina(professorAtualizado.getDisciplina());
                     return Mono.fromCallable(() -> professorRepository.save(professor))
                             .subscribeOn(Schedulers.boundedElastic());
-                }).orElseGet(Mono::empty));
+                });
     }
 
     @Transactional

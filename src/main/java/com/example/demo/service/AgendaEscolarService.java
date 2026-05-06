@@ -74,11 +74,11 @@ public class AgendaEscolarService {
     public Mono<AgendaEscolar> salvar(AgendaEscolar agenda) {
         return Mono.fromCallable(() -> {
             Aluno aluno = alunoRepository.findById(agenda.getAluno().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
+                    .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado com id: " + agenda.getAluno().getId()));
             Professor professor = professorRepository.findById(agenda.getProfessor().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Professor não encontrado"));
+                    .orElseThrow(() -> new IllegalArgumentException("Professor não encontrado com id: " + agenda.getProfessor().getId()));
             Sala sala = salaRepository.findById(agenda.getSala().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Sala não encontrada"));
+                    .orElseThrow(() -> new IllegalArgumentException("Sala não encontrada com id: " + agenda.getSala().getId()));
             agenda.setAluno(aluno);
             agenda.setProfessor(professor);
             agenda.setSala(sala);
@@ -95,11 +95,11 @@ public class AgendaEscolarService {
                 return null;
             }
             Aluno aluno = alunoRepository.findById(agendaAtualizada.getAluno().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado"));
+                    .orElseThrow(() -> new IllegalArgumentException("Aluno não encontrado com id: " + agendaAtualizada.getAluno().getId()));
             Professor professor = professorRepository.findById(agendaAtualizada.getProfessor().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Professor não encontrado"));
+                    .orElseThrow(() -> new IllegalArgumentException("Professor não encontrado com id: " + agendaAtualizada.getProfessor().getId()));
             Sala sala = salaRepository.findById(agendaAtualizada.getSala().getId())
-                    .orElseThrow(() -> new IllegalArgumentException("Sala não encontrada"));
+                    .orElseThrow(() -> new IllegalArgumentException("Sala não encontrada com id: " + agendaAtualizada.getSala().getId()));
             agenda.setData(agendaAtualizada.getData());
             agenda.setHora(agendaAtualizada.getHora());
             agenda.setDescricao(agendaAtualizada.getDescricao());

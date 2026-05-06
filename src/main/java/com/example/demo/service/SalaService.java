@@ -39,13 +39,17 @@ public class SalaService {
     public Mono<Sala> atualizar(Long id, Sala salaAtualizada) {
         return Mono.fromCallable(() -> salaRepository.findById(id))
                 .subscribeOn(Schedulers.boundedElastic())
-                .flatMap(opt -> opt.map(sala -> {
+                .flatMap(opt -> {
+                    if (opt.isEmpty()) {
+                        return Mono.<Sala>empty();
+                    }
+                    Sala sala = opt.get();
                     sala.setNome(salaAtualizada.getNome());
                     sala.setNumero(salaAtualizada.getNumero());
                     sala.setCapacidade(salaAtualizada.getCapacidade());
                     return Mono.fromCallable(() -> salaRepository.save(sala))
                             .subscribeOn(Schedulers.boundedElastic());
-                }).orElseGet(Mono::empty));
+                });
     }
 
     @Transactional
